@@ -2,7 +2,7 @@ package;
 
 import flixel.math.FlxMath;
 import flixel.tweens.misc.ColorTween;
-import flixel.addons.display.FlxBackdrop;
+import FlxBackdrop;
 import flixel.FlxSprite;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
@@ -13,7 +13,9 @@ import flixel.util.FlxSave;
 
 class SelectLanguageState extends MusicBeatState
 {
+	#if (flixel < "5.5.0")
    var bg:FlxBackdrop;
+   #end
    var selectLanguage:FlxText;
    var textItems:Array<FlxText> = new Array<FlxText>();
    var curLanguageSelected:Int;
@@ -31,10 +33,12 @@ class SelectLanguageState extends MusicBeatState
 
       langaugeList = LanguageManager.getLanguages();
       
+      #if (flixel < "5.5.0")
       bg = new FlxBackdrop(Paths.image('ui/checkeredBG', 'preload'), 1, 1, true, true, 1, 1);
       bg.antialiasing = true;
       bg.color = langaugeList[curLanguageSelected].langaugeColor;
       add(bg);
+	  #end
 
       selectLanguage = new FlxText(0, (FlxG.height / 2) - 300, FlxG.width, "Please Select A Language", 45);
       selectLanguage.setFormat("Comic Sans MS Bold", 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
@@ -78,8 +82,10 @@ class SelectLanguageState extends MusicBeatState
    public override function update(elapsed:Float)
    {
       var scrollSpeed:Float = 50;
+	  #if (flixel < "5.5.0")
       bg.x -= scrollSpeed * elapsed;
       bg.y -= scrollSpeed * elapsed;
+	  #end
 
       if (!accepted)
       {
@@ -128,7 +134,9 @@ class SelectLanguageState extends MusicBeatState
       {
          updateText(menuItem, menuItem == textItems[curLanguageSelected]);
       }
+	  #if (flixel < "5.5.0")
       FlxTween.color(bg, 0.4, bg.color, langaugeList[curLanguageSelected].langaugeColor);
+	  #end
    }
    function updateText(text:FlxText, selected:Bool)
    {

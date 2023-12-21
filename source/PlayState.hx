@@ -10,7 +10,7 @@ import sys.FileSystem;
 import flixel.util.FlxArrayUtil;
 import flixel.addons.plugin.FlxScrollingText;
 import Alphabet;
-import flixel.addons.display.FlxBackdrop;
+import FlxBackdrop;
 import openfl.display.ShaderParameter;
 import openfl.display.Graphics;
 import flixel.group.FlxSpriteGroup;
@@ -399,7 +399,9 @@ class PlayState extends MusicBeatState
 	var daveBG:String;
 	var bambiBG:String;
 	var tristanBG:String;
+	#if (flixel < "5.5.0")
 	var charBackdrop:FlxBackdrop;
+	#end
 	var alphaCharacters:FlxTypedGroup<Alphabet> = new FlxTypedGroup<Alphabet>();
 	var daveSongs:Array<String> = ['House', 'Insanity', 'Polygonized', 'Bonus Song'];
 	var bambiSongs:Array<String> = ['Blocked', 'Corn-Theft', 'Maze', 'Mealie'];
@@ -1203,6 +1205,10 @@ class PlayState extends MusicBeatState
 				boyfriend.y += 100;
 				dad.x -= 0;
 				dad.y -= -70;
+			case 'omission':
+				dad.setPosition(0, -70);
+				boyfriend.setPosition(400, 130);
+				gf.setPosition(950, -200);
 			case 'house-older':
 				dad.y -= 100;
 			case 'garrettLand':
@@ -2596,6 +2602,7 @@ class PlayState extends MusicBeatState
 				freeplayBG.alpha = 0;
 				add(freeplayBG);
 				
+	            #if (flixel < "5.5.0")
 				charBackdrop = new FlxBackdrop(Paths.image('recursed/daveScroll'), 1, 1, true, true);
 				charBackdrop.antialiasing = true;
 				charBackdrop.scale.set(2, 2);
@@ -2603,6 +2610,7 @@ class PlayState extends MusicBeatState
 				charBackdrop.color = FlxColor.multiply(charBackdrop.color, FlxColor.fromRGB(44, 44, 44));
 				charBackdrop.alpha = 0;
 				add(charBackdrop);
+				#end
 
 				initAlphabet(daveSongs);
 			case 'roof':
@@ -4010,8 +4018,10 @@ class PlayState extends MusicBeatState
 		if (SONG.song.toLowerCase() == 'recursed')
 		{
 			var scrollSpeed = 150;
+	        #if (flixel < "5.5.0")
 			charBackdrop.x -= scrollSpeed * elapsed;
 			charBackdrop.y += scrollSpeed * elapsed;
+			#end
 
 			darkSky.x += 40 * scrollSpeed * elapsed;
 			if (darkSky.x >= (darkSkyStartPos * 4) - 1280)
@@ -4022,7 +4032,9 @@ class PlayState extends MusicBeatState
 			
 			var lerpVal = 0.97;
 			freeplayBG.alpha = FlxMath.lerp(0, freeplayBG.alpha, lerpVal);
+	        #if (flixel < "5.5.0")
 			charBackdrop.alpha = FlxMath.lerp(0, charBackdrop.alpha, lerpVal);
+			#end
 			for (char in alphaCharacters)
 			{
 				for (letter in char.characters)
@@ -8189,14 +8201,18 @@ class PlayState extends MusicBeatState
 							FlxG.camera.flash();
 						case 864:
 							FlxG.camera.flash();
+	                        #if (flixel < "5.5.0")
 							charBackdrop.loadGraphic(Paths.image('recursed/bambiScroll'));
+							#end
 							freeplayBG.loadGraphic(bambiBG);
 							freeplayBG.color = FlxColor.multiply(0xFF00B515, FlxColor.fromRGB(44, 44, 44));
 							initAlphabet(bambiSongs);
 						case 1248:
 							defaultCamZoom = 0.6;
 							FlxG.camera.flash();
+	                        #if (flixel < "5.5.0")
 							charBackdrop.loadGraphic(Paths.image('recursed/tristanScroll'));
+							#end
 							freeplayBG.loadGraphic(tristanBG);
 							freeplayBG.color = FlxColor.multiply(0xFFFF0000, FlxColor.fromRGB(44, 44, 44));
 							initAlphabet(tristanSongs);
@@ -10832,7 +10848,9 @@ class PlayState extends MusicBeatState
 		if (curBeat % 4 == 0 && SONG.song.toLowerCase() == 'recursed')
 		{
 			freeplayBG.alpha = 0.8;
+	        #if (flixel < "5.5.0")
 			charBackdrop.alpha = 0.8;
+			#end
 
 			for (char in alphaCharacters)
 			{

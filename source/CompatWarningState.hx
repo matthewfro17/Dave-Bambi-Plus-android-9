@@ -2,7 +2,7 @@ package;
 
 import flixel.math.FlxMath;
 import flixel.tweens.misc.ColorTween;
-import flixel.addons.display.FlxBackdrop;
+import FlxBackdrop;
 import flixel.FlxSprite;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
@@ -13,7 +13,9 @@ import flixel.util.FlxSave;
 
 class CompatWarningState extends MusicBeatState
 {
+	#if (flixel < "5.5.0")
     var bg:FlxBackdrop;
+	#end
     var warningBox:FlxText;
     var textItems:Array<FlxText> = new Array<FlxText>();
     var curSelected:Int;
@@ -24,9 +26,11 @@ class CompatWarningState extends MusicBeatState
 
     public override function create():Void
     {
+	    #if (flixel < "5.5.0")
         bg = new FlxBackdrop(Paths.image('ui/checkeredBG', 'preload'), 1, 1, true, true, 1, 1);
         bg.antialiasing = true;
         add(bg);
+		#end
 
         warningBox = new FlxText(0, (FlxG.height / 2) - 300, FlxG.width, LanguageManager.getTextString("compat_warning"), 45);
         warningBox.setFormat("Comic Sans MS Bold", 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
@@ -52,8 +56,10 @@ class CompatWarningState extends MusicBeatState
     public override function update(elapsed:Float)
     {
         var scrollSpeed:Float = 50;
+	    #if (flixel < "5.5.0")
         bg.x -= scrollSpeed * elapsed;
         bg.y -= scrollSpeed * elapsed;
+		#end
 
         if (!accepted)
             {
