@@ -113,7 +113,6 @@ class DiscordRpc
 #end
 private extern class DiscordRpcExterns
 {
-    @:native('linc::discord_rpc::init')
     private static function _init(_clientID : String, _steamAppID : String, _onReady : VoidCallback, _onDisconnected : ErrorCallback, _onError : ErrorCallback, _onJoin : SecretCallback, _onSpectate : SecretCallback, _onRequest : RequestCallback) : Void;
     static inline function init(_clientID : String, ?_steamAppID : String) : Void
     {
@@ -125,14 +124,10 @@ private extern class DiscordRpcExterns
             Function.fromStaticFunction(_onSpectate),
             Function.fromStaticFunction(_onRequest));
     }
-
-    @:native('linc::discord_rpc::process')
     static function process() : Void;
 
-    @:native('linc::discord_rpc::respond')
     static function respond(_userID : String, _reply : Int) : Void;
 
-    @:native('linc::discord_rpc::update_presence')
     static function setPresence(
         _state : String, _details : String,
         _startTimestamp : cpp.Int64, _endTimestamp : cpp.Int64,
@@ -143,7 +138,6 @@ private extern class DiscordRpcExterns
         _instance : cpp.Int8
     ) : Void;
 
-    @:native('linc::discord_rpc::shutdown')
     static function shutdown() : Void;
 
     private static inline function _onReady() : Void
