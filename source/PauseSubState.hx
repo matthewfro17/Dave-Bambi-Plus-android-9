@@ -9,7 +9,7 @@ import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.FlxSubState;
 import flixel.group.FlxGroup.FlxTypedGroup;
-import flixel.system.FlxSound;
+import flixel.sound.FlxSound;
 import flixel.text.FlxText;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
@@ -203,7 +203,9 @@ class PauseSubState extends MusicBeatSubstate
 		levelDifficulty.x = FlxG.width - (levelDifficulty.width + 20);
 
 		FlxTween.tween(backBg, {alpha: 0.6}, 0.4, {ease: FlxEase.quartInOut});
+		#if (flixel < "5.5.0")
 		FlxTween.tween(bg, {alpha: 0.6}, 0.4, {ease: FlxEase.quartInOut});
+		#end
 		FlxTween.tween(levelInfo, {alpha: 1, y: 20}, 0.4, {ease: FlxEase.quartInOut, startDelay: 0.3});
 		FlxTween.tween(levelDifficulty, {alpha: 1, y: levelDifficulty.y + 5}, 0.4, {ease: FlxEase.quartInOut, startDelay: 0.5,
 		onComplete: function(tween:FlxTween)
@@ -430,7 +432,8 @@ class PauseSubState extends MusicBeatSubstate
 	{
 		var beforeInt = FlxG.random.int(0, 6);
 		var randomInt = FlxG.random.int(0, 6);
-				
+	
+    	#if (flixel < "5.5.0")
 		FlxTween.color(bg, 4, bg.color, colorArray[beforeInt], {
 			onComplete: function(twn)
 			{
@@ -440,6 +443,7 @@ class PauseSubState extends MusicBeatSubstate
 				tweenColorShit4();
 			}
 		});
+		#end
 	}
 	override function close()
 	{

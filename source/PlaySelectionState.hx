@@ -138,7 +138,9 @@ class PlaySelectionState extends MusicBeatState
 		FlxG.camera.follow(camFollow, null, camLerp);
 
 		FlxG.camera.zoom = 3;
+	    #if (flixel < "5.5.0")
 		side.alpha = checker.alpha = 0;
+		#end
 		FlxTween.tween(FlxG.camera, { zoom: 1}, 1.2, { ease: FlxEase.expoInOut });
 		FlxTween.tween(bg, { y:-30}, 1, { ease: FlxEase.quartInOut,});
 		FlxTween.tween(side, { alpha:1}, 1, { ease: FlxEase.quartInOut});
