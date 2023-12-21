@@ -23,7 +23,7 @@ import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
 import lime.app.Application;
-import flixel.addons.display.FlxBackdrop;
+import FlxBackdrop;
 import flixel.input.keyboard.FlxKey;
 import flixel.util.FlxGradient;
 #if desktop
@@ -132,7 +132,9 @@ class MainMenuState extends MusicBeatState
 
 	var black:FlxSprite;
 
+	#if (flixel < "5.5.0")
 	var checker:FlxBackdrop = new FlxBackdrop(Paths.image('ui/checkeredBG'), 0.2, 0.2, true, true);
+	#end
 	var gradientBar:FlxSprite = new FlxSprite(0, 0).makeGraphic(FlxG.width, 300, 0xFFfd719b);
 
 	override function create()
@@ -213,8 +215,10 @@ class MainMenuState extends MusicBeatState
 				add(gradientBar);
 				gradientBar.scrollFactor.set(0, 0);
 		
+		        #if (flixel < "5.5.0")
 				add(checker);
 				checker.scrollFactor.set(0, 0.07);
+				#end
 			}
 		}
 		selectUi = new FlxSprite(0, 0).loadGraphic(Paths.image('mainMenu/Select_Thing', 'preload'));
@@ -336,8 +340,10 @@ class MainMenuState extends MusicBeatState
 
 	override function update(elapsed:Float)
 	{
+	    #if (flixel < "5.5.0")
 		checker.x -= 0.21;
 		checker.y -= 0.51;
+		#end
 		
 		#if SHADERS_ENABLED
 		if (voidShader != null)
